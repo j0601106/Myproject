@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM820M_">
+	
+	<select id="queryDOCRMT820" parameterType="HashMap" resultType="HashMap">
+		select
+			 A.PKNO
+			,A.DOCRM_TP_NM
+			,A.DOCRM_TP
+			,A.TAX_TP
+			,D.PHRASE_TITLE
+			,A.CREATE_USER_ID
+			,A.CREATE_DATE
+			,A.CREATE_TIME
+			,A.UPDATE_USER_ID
+			,A.UPDATE_DATE
+			,A.UPDATE_TIME
+		from 
+			DOCRMT820  A
+		LEFT JOIN docrmt850 D ON D.PHRASE_KEY=A.TAX_TP
+		AND D.PHRASE_TYPE_KEY = 'TAX_TP'	
+		<where>
+			<if test="PKNO != null and PKNO != ''">and A.PKNO = #{PKNO} </if>
+			
+		<choose>
+		<when test='DOCRM_TP_NM != null and DOCRM_TP_NM != ""'>
+				AND A.DOCRM_TP_NM like '%${DOCRM_TP_NM}%'
+		</when>
+		</choose>
+		<if test='DOCRM_TP != null and DOCRM_TP != ""'>
+				AND A.DOCRM_TP = #{DOCRM_TP}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+				AND A.TAX_TP = #{TAX_TP}
+		</if>
+		</where>
+	</select>
+	
+	<select id="querylOOKfORtO200" parameterType="HashMap" resultType="HashMap">
+				select  *	from DOCRMT200 WHERE DOCRM_TP = #{DOCRM_TP}
+	</select>
+		<select id="querylOOKT200" parameterType="HashMap" resultType="HashMap">
+				select  *	from DOCRMT200 WHERE DOCRM_TP = #{DOCRM_TP2}
+	</select>
+	
+	
+	<insert id="insertDOCRMT820" parameterType="HashMap">
+		insert into DOCRMT820(
+			DOCRM_TP_NM
+			,DOCRM_TP
+			,TAX_TP
+			,CREATE_USER_ID
+			,CREATE_DATE
+			,CREATE_TIME
+			,UPDATE_USER_ID
+			,UPDATE_DATE
+			,UPDATE_TIME
+		
+		)values(
+			#{DOCRM_TP_NM}
+			,#{DOCRM_TP}
+			,#{TAX_TP}
+			,#{CREATE_USER_ID}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{UPDATE_USER_ID}
+			,#{UPDATE_DATE}
+			,#{UPDATE_TIME}
+		)
+	</insert>
+	
+	<update id="updateDOCRMT820" parameterType="HashMap">
+		update DOCRMT820
+		<set>
+			<if test="DOCRM_TP_NM != null">DOCRM_TP_NM = #{DOCRM_TP_NM},</if>
+			<if test="DOCRM_TP != null">DOCRM_TP = #{DOCRM_TP},</if>
+			<if test="TAX_TP != null">TAX_TP = #{TAX_TP},</if>
+			<if test="UPDATE_USER_ID != null">UPDATE_USER_ID = #{UPDATE_USER_ID},</if>
+			<if test="UPDATE_DATE != null">UPDATE_DATE = #{UPDATE_DATE},</if>
+			<if test="UPDATE_TIME != null">UPDATE_TIME = #{UPDATE_TIME},</if>
+		</set> 
+		where 
+			PKNO = #{PKNO}
+	</update>
+	
+	<delete id="deleteDOCRMT820" parameterType="HashMap">
+		delete from DOCRMT820 
+		where 
+		PKNO in 
+		<foreach collection="PKNO" item="ids" open="(" separator="," close=")">
+	 		#{ids}
+	 	</foreach>
+	</delete>
+</mapper>

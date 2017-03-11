@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM310M_">
+	
+	<select id="queryDOCRMT200" parameterType="HashMap" resultType="HashMap">
+		SELECT
+			DOCRM_NO as F0
+			,APPLY_NM as F1
+			,APPLY_IDN as F2
+			,(case when ACP_CD = 'E77' then '1'
+				   when ACP_CD = 'E79' then '2'
+				   when ACP_CD = 'E81' then '3'
+				   when ACP_CD = 'E78' then '4'
+				   when ACP_CD = 'E86' then '5'
+				   when ACP_CD = 'E91' then '5'
+				   when ACP_CD = 'E82' then '6'
+				   when ACP_CD = 'E80' then '7'
+				   when ACP_CD = 'E88' then '8'
+				   when ACP_CD = 'E87' then '9'
+				   when ACP_CD = 'E89' then '10'
+				   when ACP_CD = 'E83' then '11'
+				   when ACP_CD = 'E84' then '12'
+				   when ACP_CD = 'E85' then '13'
+			 end) as F3
+			,APPLY_SUBJECT as F4
+			,MOBILE_NO as F5
+			,APPLY_DATE as F6
+			,'' as F7
+			,'' as F8
+			,'' as F9
+			,'' as FA
+			,EMAIL as FB
+		FROM
+			DOCRMT200
+		where
+			DOCRM_NO = #{DOCRM_NO}
+	</select>
+	
+	<select id="queryDOCRMT210" parameterType="HashMap" resultType="HashMap">
+		SELECT
+			FILE_PATH
+			,FILE_NM
+		FROM
+			DOCRMT210
+		where
+			DOCRM_NO = #{DOCRM_NO}
+	</select>
+	
+	<update id="updateDOCRMT200" parameterType="HashMap">
+		update DOCRMT200
+		set
+			DOCRM_STUS = '3'
+		where 
+			DOCRM_NO = #{DOCRM_NO}
+	</update>
+	
+	<insert id="insertDOCRMT300" parameterType="HashMap">
+	    insert into DOCRMT300(
+			MESS_NO
+			,DOCRM_NO
+			,SD_DATE
+			,SD_TIME
+			,DOC_ORG_ID
+			,MSG_STUS
+			,DOCRM_STUS
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{MESS_NO}
+			,#{DOCRM_NO}
+			,#{SD_DATE}
+			,#{SD_TIME}
+			,#{DOC_ORG_ID}
+			,#{MSG_STUS}
+			,#{DOCRM_STUS}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+</mapper>

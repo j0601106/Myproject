@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM120M_">
+	
+	<select id="queryGROUPFUMCTION" parameterType="HashMap" resultType="HashMap">
+		SELECT DOCRMT121.FUNCTION_ID,
+		       DOCRMT121.FUNCTION_NM,
+		       DOCRMT122.FUNCTION_ID AS H_FUNCTION_ID
+		  FROM DOCRMT121 
+		  LEFT JOIN DOCRMT122 ON DOCRMT121.FUNCTION_ID = DOCRMT122.FUNCTION_ID AND GROUP_ID = #{GROUP_ID} 
+		 ORDER BY DOCRMT121.FUNCTION_ID
+	</select>
+	
+</mapper>

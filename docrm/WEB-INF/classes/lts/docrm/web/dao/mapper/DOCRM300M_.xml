@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM300M_">
+	
+	<select id="queryDOCRMT860" parameterType="HashMap" resultType="HashMap">
+		select
+			MESS_NO
+		from 
+			DOCRMT860
+		where
+			ORG_ID = #{ORG_ID}
+		and			
+			SYS_DATE = #{SYS_DATE}
+	</select>
+	
+	<select id="queryDOCRMT860_MAXNO" parameterType="HashMap" resultType="HashMap">
+		select
+			LPAD(MAX(substr(MESS_NO,11,3)) + 1,3,'0') as MESS_MAX_NO
+		from 
+			DOCRMT860
+		where
+			ORG_ID = #{ORG_ID}
+		and			
+			SYS_DATE = #{SYS_DATE}
+	</select>
+	
+	<insert id="insertDOCRMT860" parameterType="HashMap">
+		insert into DOCRMT860(
+			ORG_ID
+			,SYS_DATE
+			,MESS_NO
+		)values(
+			#{ORG_ID}
+			,#{SYS_DATE}
+			,#{MESS_NO}
+		)
+	</insert>
+	
+	<insert id="insertDOCRMT200" parameterType="HashMap">
+		insert into DOCRMT200(
+			MESS_NO
+			,TAX_TP
+			,DOCRM_TP
+			,APPLY_NM
+			,APPLY_SUBJECT
+			,APPLY_DATE
+			,MOBILE_NO
+			,EMAIL
+			,ACP_CD
+			,DOC_ORG_ID
+			,DOCRM_STUS
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{MESS_NO}
+			,(SELECT TAX_TP FROM DOCRMT820 WHERE DOCRM_TP = #{DOCRM_TP})
+			,#{DOCRM_TP}
+			,#{APPLY_NM}
+			,#{APPLY_SUBJECT}
+			,#{APPLY_DATE}
+			,#{MOBILE_NO}
+			,#{EMAIL}
+			,#{ACP_CD}
+			,#{DOC_ORG_ID}
+			,#{DOCRM_STUS}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<insert id="insertDOCRMT210" parameterType="HashMap">
+		insert into DOCRMT210(
+			MESS_NO
+			,FILE_NO
+			,FILE_NM
+			,FILE_PATH
+			,SOURCE
+			,FILE_STUS
+			,SD_DATE
+			,SD_TIME
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{MESS_NO}
+			,#{FILE_NO}
+			,#{FILE_NM}
+			,#{FILE_PATH}
+			,#{SOURCE}
+			,#{FILE_STUS}
+			,#{SD_DATE}
+			,#{SD_TIME}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<insert id="insertDOCRMT300" parameterType="HashMap">
+	    insert into DOCRMT300(
+			MESS_NO
+			,SD_DATE
+			,SD_TIME
+			,DOC_ORG_ID
+			,DOCRM_STUS
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{MESS_NO}
+			,#{SD_DATE}
+			,#{SD_TIME}
+			,#{DOC_ORG_ID}
+			,#{DOCRM_STUS}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<insert id="insertDOCRMT310" parameterType="HashMap">
+	    insert into DOCRMT310(
+			FILE_NO
+			,SD_DATE
+			,SD_TIME
+			,FILE_STUS
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{FILE_NO}
+			,#{SD_DATE}
+			,#{SD_TIME}
+			,#{FILE_STUS}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+</mapper>

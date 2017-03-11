@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM240M_">
+	
+	<select id="queryDOCRMT210" parameterType="HashMap" resultType="HashMap">
+		SELECT DOCRMT210.DOCRM_NO,
+		       DOCRMT210.MESS_NO,
+		       DOCRMT210.FILE_NO,
+		       DOCRMT210.FILE_NM,
+		       DOCRMT210.FILE_PATH,
+		       DOCRMT210.DOC_TP,
+		       DOCRMT200.APPLY_NM,
+		       DOCRMT200.DOC_STF_NM,
+		       DOCRMT820.DOCRM_TP_NM,
+		       R1.PHRASE_TITLE AS TAX_TP_NM
+		  FROM DOCRMT210 
+		  LEFT JOIN DOCRMT200 ON DOCRMT210.DOCRM_NO = DOCRMT200.DOCRM_NO
+		  LEFT JOIN DOCRMT820 ON DOCRMT820.DOCRM_TP = DOCRMT200.DOCRM_TP AND DOCRMT820.TAX_TP = DOCRMT200.TAX_TP
+		  LEFT JOIN DOCRMT850 R1 ON R1.PHRASE_KEY = DOCRMT200.TAX_TP AND R1.PHRASE_TYPE_KEY = 'TAX_TP'
+		 WHERE DOCRM_STUS <![CDATA[<>]]> 5
+		   AND DOCRMT200.DOC_STF_CD = #{DOC_STF_CD}
+		  <if test="TAX_TP != null and TAX_TP != '' ">AND DOCRMT200.TAX_TP = #{TAX_TP}</if>
+		  <if test="DOCRM_TP != null and DOCRM_TP != '' ">AND DOCRMT200.DOCRM_TP = #{DOCRM_TP}</if>
+		  <if test="APPLY_NM != null and APPLY_NM != '' ">AND DOCRMT200.APPLY_NM = #{APPLY_NM}</if>
+		  <if test="APPLY_IDN != null and APPLY_IDN != '' ">AND DOCRMT200.APPLY_IDN = #{APPLY_IDN}</if>
+		  <if test="START_APPLY_DATE != null and START_APPLY_DATE != '' ">AND DOCRMT200.APPLY_DATE <![CDATA[> =]]> #{START_APPLY_DATE}</if>
+		  <if test="END_APPLY_DATE != null and END_APPLY_DATE != '' ">AND DOCRMT200.APPLY_DATE <![CDATA[< =]]> #{END_APPLY_DATE}</if>
+		  <if test="DOCRM_NO != null and DOCRM_NO != '' ">AND DOCRMT200.DOCRM_NO = #{DOCRM_NO}</if>
+	</select>
+	
+</mapper>

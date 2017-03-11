@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="docrm.dao.DOCRM260ConvertAdapter">
+
+	<select id="selectDOCRMT200" parameterType="HashMap" resultType="HashMap">
+		SELECT MESS_NO
+		  FROM DOCRMT200
+		 WHERE DOCRM_NO = #{DOCRM_NO}
+	</select>
+
+	<insert id="insertDOCRMT210" parameterType="HashMap">
+		INSERT INTO DOCRMT210( MESS_NO
+		                      ,DOCRM_NO
+		                      ,DOC_TP
+		                      ,FILE_NO 
+		                      ,FILE_NM
+		                      ,FILE_PATH
+		                      ,SOURCE
+		                      ,ADD_STUS
+		                      ,FILE_STUS
+		                      ,SD_DATE
+		                      ,SD_TIME
+		                      ,CREATE_DATE
+		                      ,CREATE_TIME)
+		               VALUES( #{MESS_NO}
+			                  ,#{DOCRM_NO}
+			                  ,#{DOC_TP}
+			                  ,#{FILE_NO} 
+			                  ,#{FILE_NM}
+			                  ,#{FILE_PATH}
+			                  ,#{SOURCE}
+			                  ,#{ADD_STUS}
+			                  ,#{FILE_STUS}
+			                  ,#{SD_DATE}
+			                  ,#{SD_TIME}
+			                  ,SUBSTR(NOW() + 0,1,8)-19110000
+			                  ,CONCAT(SUBSTR(NOW()+0,9),'00'))
+	</insert>
+
+	<insert id="insertDOCRMT310" parameterType="HashMap">
+	    INSERT INTO DOCRMT310( FILE_NO
+		                      ,SD_DATE
+		                      ,SD_TIME
+		                      ,ADD_STUS 
+		                      ,FILE_STUS
+		                      ,CREATE_DATE
+		                      ,CREATE_TIME)
+		               VALUES( #{FILE_NO}
+			                  ,#{SD_DATE}
+			                  ,#{SD_TIME}
+			                  ,#{ADD_STUS} 
+			                  ,#{FILE_STUS}
+			                  ,SUBSTR(NOW() + 0,1,8)-19110000
+			                  ,CONCAT(SUBSTR(NOW()+0,9),'00'))
+	</insert>
+
+	<insert id="insertDOCRMT320" parameterType="HashMap">
+		INSERT INTO DOCRMT320( MSG_NM
+		                      ,CREATE_DATE
+		                      ,CREATE_TIME)
+		               VALUES( #{MSG_NM}
+			                  ,SUBSTR(NOW() + 0,1,8)-19110000
+			                  ,CONCAT(SUBSTR(NOW()+0,9),'00'))
+	</insert>
+
+	<insert id="insertDOCRMT720" parameterType="HashMap">
+		INSERT INTO DOCRMT720( DOCRM_NO
+		                      ,QUESTION_ID
+		                      ,RESULT_ID
+		                      ,RESPOND_DATE 
+		                      ,CREATE_DATE
+		                      ,CREATE_TIME)
+		               VALUES( #{DOCRM_NO}
+			                  ,#{QUESTION_ID}
+			                  ,#{RESULT_ID}
+			                  ,#{RESPOND_DATE} 
+			                  ,SUBSTR(NOW() + 0,1,8)-19110000
+			                  ,CONCAT(SUBSTR(NOW()+0,9),'00'))
+	</insert>
+	
+</mapper>

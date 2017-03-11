@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM810M_">
+	
+	<select id="queryDOCRMT810" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		A.*,
+		R1.PHRASE_TITLE AS TAX,
+		R2.PHRASE_TITLE AS STATUS
+		FROM DOCRMT810 A
+		LEFT JOIN DOCRMT850 R1 ON A.TAX_TP = R1.PHRASE_KEY
+		AND R1.PHRASE_TYPE_KEY = 'TAX_TP'
+		LEFT JOIN DOCRMT850 R2 ON A.STUS = R2.PHRASE_KEY
+		AND R2.PHRASE_TYPE_KEY = 'STUS'
+ 		<where>
+ 			<if test="PKNO != null and PKNO != ''">and A.PKNO = #{PKNO} </if>
+  			<if test="TAX_TP != null and TAX_TP != ''">and A.TAX_TP = #{TAX_TP} </if>
+ 		 	<if test="STUS != null and STUS != ''">and A.STUS = #{STUS} </if>
+ 		</where>
+	</select>
+	
+	<insert id="insertDOCRMT810" parameterType="HashMap">
+		insert into DOCRMT810(
+			MANDATE_NO
+			,TAX_TP
+			,STUS
+			,SUBJECT
+			,CONTENT
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{MANDATE_NO}
+			,#{TAX_TP}
+			,#{STUS}
+			,#{SUBJECT}
+			,#{CONTENT}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	<!-- 強制將STUS="Y"的資料轉為"N" -->
+	<update id="updateSUTS" parameterType="HashMap">
+		update DOCRMT810
+		<set>
+		STUS = 'N'
+		</set>
+		WHERE TAX_TP = #{TAX_TP} AND STUS = #{STUS}
+	</update>
+	
+	<update id="updateDOCRMT810" parameterType="HashMap">
+		update DOCRMT810
+		<set>
+			<if test="MANDATE_NO != null">MANDATE_NO = #{MANDATE_NO},</if>
+			<if test="TAX_TP != null">TAX_TP = #{TAX_TP},</if>
+			<if test="STUS != null">STUS = #{STUS},</if>
+			<if test="SUBJECT != null">SUBJECT = #{SUBJECT},</if>
+			<if test="CONTENT != null">CONTENT = #{CONTENT},</if>
+			<if test="UPDATE_TIME != null">UPDATE_TIME = #{UPDATE_TIME},</if>
+			<if test="UPDATE_DATE != null">UPDATE_DATE = #{UPDATE_DATE},</if>
+			<if test="UPDATE_USER_ID != null">UPDATE_USER_ID = #{UPDATE_USER_ID},</if>
+		</set> 
+		where 
+			PKNO = #{PKNO}
+	</update>
+	
+	<delete id="deleteDOCRMT810" parameterType="HashMap">
+		delete from DOCRMT810 
+		where 
+		PKNO in 
+		<foreach collection="PKNO" item="ids" open="(" separator="," close=")">
+	 		#{ids}
+	 	</foreach>
+	</delete>
+	
+</mapper>

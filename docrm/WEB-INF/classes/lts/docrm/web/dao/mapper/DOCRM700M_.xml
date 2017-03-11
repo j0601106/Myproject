@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM700M_">
+
+	<!-- 查詢畫面用 -->
+	<select id="querySTUS" parameterType="HashMap" resultType="HashMap">
+		SELECT A.*, B.PHRASE_TITLE AS STATUS
+		FROM docrmt700 A
+		LEFT JOIN docrmt850 B ON B.PHRASE_KEY = A.STUS
+		AND B.PHRASE_TYPE_KEY IN ('STUS')
+		<where>
+			<if test="PKNO != null and PKNO != ''">and A.PKNO = #{PKNO} </if>
+			<if test="STUS != null and STUS != ''">and STUS = #{STUS} </if>
+		</where>
+	</select>
+	
+	<!-- 編輯紐查詢710資料 -->
+	<select id="query710" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM docrmt710
+		<where>
+			 QUESTION_ID = #{QUESTION_ID}
+		</where>
+		ORDER BY PKNO
+	</select>
+	
+	<!-- 編輯儲存紐查詢710資料 -->
+	<select id="query710data" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM docrmt710
+		<where>
+			 QUESTION_ID = #{QUESTION_ID2}
+		</where>
+		ORDER BY PKNO
+	</select>
+	
+	<!-- 檢核 -->
+	<select id="queryNuclear" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM DOCRMT700
+		<where>
+			STUS = 'Y'
+			AND QUESTION_ID &lt;&gt; #{QUESTION_ID}
+		</where>
+	</select>
+	
+	<!-- 編輯檢核 -->
+	<select id="queryedit" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM docrmt710
+		<where>
+			AND QUESTION_ID = #{QUESTION_ID}
+		</where>
+	</select>
+	
+	<insert id="insertDOCRMT700" parameterType="HashMap">
+		insert into DOCRMT700(
+			QUESTION_ID
+			,QUESTION
+			,STUS
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{QUESTION_ID}
+			,#{QUESTION}
+			,#{STUS}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<update id="updateDOCRMT700" parameterType="HashMap">
+		update DOCRMT700
+		<set>
+			<if test="QUESTION_ID != null">QUESTION_ID = #{QUESTION_ID},</if>
+			<if test="QUESTION != null">QUESTION = #{QUESTION},</if>
+			<if test="STUS != null">STUS = #{STUS},</if>
+			<if test="UPDATE_DATE != null">UPDATE_DATE = #{UPDATE_DATE},</if>
+			<if test="UPDATE_TIME != null">UPDATE_TIME = #{UPDATE_TIME},</if>
+			<if test="UPDATE_USER_ID != null">UPDATE_USER_ID = #{UPDATE_USER_ID},</if>			
+		</set> 
+		where 
+			PKNO = #{PKNO}
+	</update>
+	
+	
+	<!-- 答案一 -->
+	<insert id="insertDOCRMT710Result1" parameterType="HashMap">
+		insert into DOCRMT710(
+			QUESTION_ID
+			,RESULT
+			,RESULT_ID
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{QUESTION_ID}
+			,#{A1}
+			,#{RESULT_ID1}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<!-- 答案二 -->
+	<insert id="insertDOCRMT710Result2" parameterType="HashMap">
+		insert into DOCRMT710(
+			QUESTION_ID
+			,RESULT
+			,RESULT_ID
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{QUESTION_ID}
+			,#{A2}
+			,#{RESULT_ID2}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<!-- 答案三 -->
+	<insert id="insertDOCRMT710Result3" parameterType="HashMap">
+		insert into DOCRMT710(
+			QUESTION_ID
+			,RESULT
+			,RESULT_ID
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{QUESTION_ID}
+			,#{A3}
+			,#{RESULT_ID3}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<!-- 答案四 -->
+	<insert id="insertDOCRMT710Result4" parameterType="HashMap">
+		insert into DOCRMT710(
+			QUESTION_ID
+			,RESULT
+			,RESULT_ID
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+		)values(
+			#{QUESTION_ID}
+			,#{A4}
+			,#{RESULT_ID4}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+		)
+	</insert>
+	
+	<!-- 刪除docrm710資料用 -->
+	<delete id="deleteDOCRMT710" parameterType="HashMap">
+		delete from DOCRMT710 
+		where 
+		QUESTION_ID = #{QUESTION_ID2}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DOCRM610R_01R" language="groovy" pageWidth="800" pageHeight="585" orientation="Landscape" columnWidth="760" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="@@程式代號" value="docrm610r_01r.jrxml"/>
+	<property name="@@程式名稱" value="移轉統計表"/>
+	<property name="@@程式版本" value="V1.001"/>
+	<property name="@@更新日期" value="2016/10/20"/>
+	<property name="@@檢查碼" value="內容由YPM自動產生"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="48"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1">
+		<box>
+			<bottomPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<parameter name="DATE" class="java.lang.String"/>
+	<parameter name="DOC_ORG_ID" class="java.lang.String"/>
+	<parameter name="TAX_TP" class="java.lang.String"/>
+	<parameter name="SYS_DATE" class="java.lang.String"/>
+	<parameter name="ORG_NM" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="PHRASE_TITLE" class="java.lang.String"/>
+	<field name="DOCRM_APPLY" class="java.lang.String"/>
+	<field name="DOC_ORG_ID0" class="java.lang.String"/>
+	<field name="DOC_ORG_ID1" class="java.lang.String"/>
+	<field name="DOC_ORG_ID2" class="java.lang.String"/>
+	<field name="DOC_ORG_ID3" class="java.lang.String"/>
+	<field name="DOC_ORG_ID4" class="java.lang.String"/>
+	<field name="DOC_ORG_ID5" class="java.lang.String"/>
+	<field name="DOC_ORG_ID6" class="java.lang.String"/>
+	<field name="DOC_ORG_ID7" class="java.lang.String"/>
+	<field name="DOC_ORG_ID8" class="java.lang.String"/>
+	<field name="DOC_ORG_ID9" class="java.lang.String"/>
+	<field name="DOC_ORG_ID10" class="java.lang.String"/>
+	<field name="DOC_ORG_ID11" class="java.lang.String"/>
+	<field name="DOC_ORG_ID12" class="java.lang.String"/>
+	<field name="DOC_ORG_ID13" class="java.lang.String"/>
+	<field name="ALL_CHANGE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="215" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="214" width="760" height="1"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[機關別]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="174" width="50" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[合計
+申請件數]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[總處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="138" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[三民
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[前鎮
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[楠梓
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[大寮
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[小港
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[新興
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[鹽埕
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[左營
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[苓雅
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="534" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[鼓山
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="578" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[鳳山
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[旗山
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="666" y="174" width="44" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[岡山
+分處]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="710" y="174" width="50" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[合計
+移轉件數]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="54" y="141" width="186" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TAX_TP}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="141" width="54" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["稅目別:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="83" width="88" height="17"/>
+				<textElement textAlignment="Left">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[DOCRM610P]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="122" width="55" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["機關別:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="103" width="186" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="103" width="70" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["結案年月:"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="55" y="122" width="186" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{DOC_ORG_ID}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="760" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" size="16"/>
+				</textElement>
+				<text><![CDATA[收件管理系統移轉統計表]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="760" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="標楷體" size="16" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ORG_NM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="677" y="141" width="83" height="16"/>
+				<textElement textAlignment="Left">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SYS_DATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="592" y="141" width="85" height="16"/>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" size="12"/>
+				</textElement>
+				<text><![CDATA[製表日期：]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="173" width="760" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="44" y="3" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOCRM_APPLY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="94" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID0}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="138" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="226" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID3}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="270" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID4}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="314" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID5}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="0" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PHRASE_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="182" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="358" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID6}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="402" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID7}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="446" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID8}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="490" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID9}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="534" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID10}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="578" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID11}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="666" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID13}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="622" y="3" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DOC_ORG_ID12}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="710" y="3" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="標楷體" size="12" pdfFontName="MSung-Light" pdfEncoding="UniCNS-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ALL_CHANGE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

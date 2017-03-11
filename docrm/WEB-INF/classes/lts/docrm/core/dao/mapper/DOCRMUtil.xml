@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="docrm.dao.DOCRMUtil">
+	
+	<select id="queryMaxDocrmNo">
+		SELECT DOCRM_NO
+		  FROM DOCRMT200
+		 WHERE SUBSTR(DOCRM_NO,2, 9) = #{DOCRM_NO}  
+		 order by DOCRM_NO desc
+	</select>
+
+	<select id="queryMaxFileNo">
+		SELECT FILE_NO
+		  FROM DOCRMT210
+		 WHERE SUBSTR(FILE_NO,1, 13) = #{FILE_NO}  
+		 order by FILE_NO desc
+	</select>
+	
+</mapper>

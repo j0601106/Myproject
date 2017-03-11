@@ -1,0 +1,3519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM610M_">
+
+	<select id="queryDOCRMT610" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		*
+		FROM(
+		SELECT
+		SORT_NO,
+		PHRASE_TITLE,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD =PHRASE_KEY
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND DOCRMT200.ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND DOCRMT200.TAX_TP = #{TAX_TP}
+		</if>
+		) AS DOCRM_APPLY,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD =PHRASE_KEY
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND DOCRMT200.ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND DOCRMT200.TAX_TP = #{TAX_TP}
+		</if>
+		AND ACP_CD &lt;&gt; DOC_ORG_ID
+		AND
+		DOCRM_STUS NOT IN ('0', '1')
+		) AS
+		'ALL_CHANGE',
+		SUM(IFNULL(DOC_ORG_ID0, 0)) AS DOC_ORG_ID0,
+		SUM(IFNULL(DOC_ORG_ID1, 0)) AS DOC_ORG_ID1,
+		SUM(IFNULL(DOC_ORG_ID2, 0))
+		AS DOC_ORG_ID2,
+		SUM(IFNULL(DOC_ORG_ID3, 0)) AS DOC_ORG_ID3,
+		SUM(IFNULL(DOC_ORG_ID4, 0)) AS DOC_ORG_ID4,
+		SUM(IFNULL(DOC_ORG_ID5, 0))
+		AS DOC_ORG_ID5,
+		SUM(IFNULL(DOC_ORG_ID6, 0)) AS DOC_ORG_ID6,
+		SUM(IFNULL(DOC_ORG_ID7, 0)) AS DOC_ORG_ID7,
+		SUM(IFNULL(DOC_ORG_ID8, 0))
+		AS DOC_ORG_ID8,
+		SUM(IFNULL(DOC_ORG_ID9, 0)) AS DOC_ORG_ID9,
+		SUM(IFNULL(DOC_ORG_ID10, 0)) AS DOC_ORG_ID10,
+		SUM(IFNULL(DOC_ORG_ID11,
+		0)) AS DOC_ORG_ID11,
+		SUM(IFNULL(DOC_ORG_ID12, 0)) AS DOC_ORG_ID12,
+		SUM(IFNULL(DOC_ORG_ID13, 0)) AS DOC_ORG_ID13
+		FROM
+		DOCRMT850
+		LEFT JOIN (
+		SELECT
+		ACP_CD,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		1
+		WHEN 'E86' THEN
+		0
+		WHEN
+		'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78'
+		THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS
+		DOC_ORG_ID0,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		1
+		WHEN 'E87'
+		THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN
+		'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS
+		DOC_ORG_ID1,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		1
+		WHEN
+		'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79'
+		THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID2,
+		(
+		CASE
+		DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88'
+		THEN
+		1
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN
+		'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID3,
+		(
+		CASE
+		DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN
+		'E89' THEN
+		1
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80'
+		THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID4,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77'
+		THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		1
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN
+		'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85'
+		THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID5,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN
+		'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91'
+		THEN
+		0
+		WHEN 'E78' THEN
+		1
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID6,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN
+		'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN
+		'E78' THEN
+		0
+		WHEN 'E79' THEN
+		1
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82'
+		THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS
+		DOC_ORG_ID7,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87'
+		THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		1
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN
+		'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS
+		DOC_ORG_ID8,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN
+		'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79'
+		THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		1
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID9,
+		(
+		CASE
+		DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88'
+		THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		1
+		WHEN 'E83' THEN
+		0
+		WHEN
+		'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID10,
+		(
+		CASE
+		DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN
+		'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80'
+		THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		1
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID11,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77'
+		THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN
+		'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		1
+		WHEN 'E85'
+		THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID12,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN
+		'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91'
+		THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		1
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID13
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD &lt;&gt; DOC_ORG_ID
+		AND
+		DOCRM_STUS NOT IN ('0', '1')
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND DOCRMT200.ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND DOCRMT200.TAX_TP = #{TAX_TP}
+		</if>
+		)
+		DOCRMT200 ON DOCRMT200.ACP_CD = DOCRMT850.PHRASE_KEY
+		WHERE
+		DOCRMT850.PHRASE_TYPE_KEY = 'ORG_ID'
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND DOCRMT850.PHRASE_KEY = #{DOC_ORG_ID}
+		</if>
+		GROUP BY
+		SORT_NO,
+		PHRASE_TITLE
+
+
+		UNION ALL
+
+		SELECT
+		'1000',
+		'共計',
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		<where>
+			<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+				AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+			</if>
+			<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+				AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+			</if>
+			<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+				AND ACP_CD = #{DOC_ORG_ID}
+			</if>
+			<if test='TAX_TP != null and TAX_TP != ""'>
+				AND TAX_TP = #{TAX_TP}
+			</if>
+		</where>
+		) AS DOCRM_APPLY,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD = PHRASE_KEY
+		AND ACP_CD &lt;&gt; DOC_ORG_ID
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		AND DOCRM_STUS NOT IN ('0', '1')
+		) AS 'ALL_CHANGE',
+		SUM(IFNULL(DOC_ORG_ID0, 0)) AS DOC_ORG_ID0,
+		SUM(IFNULL(DOC_ORG_ID1, 0))
+		AS DOC_ORG_ID1,
+		SUM(IFNULL(DOC_ORG_ID2, 0)) AS DOC_ORG_ID2,
+		SUM(IFNULL(DOC_ORG_ID3, 0)) AS DOC_ORG_ID3,
+		SUM(IFNULL(DOC_ORG_ID4, 0))
+		AS DOC_ORG_ID4,
+		SUM(IFNULL(DOC_ORG_ID5, 0)) AS DOC_ORG_ID5,
+		SUM(IFNULL(DOC_ORG_ID6, 0)) AS DOC_ORG_ID6,
+		SUM(IFNULL(DOC_ORG_ID7, 0))
+		AS DOC_ORG_ID7,
+		SUM(IFNULL(DOC_ORG_ID8, 0)) AS DOC_ORG_ID8,
+		SUM(IFNULL(DOC_ORG_ID9, 0)) AS DOC_ORG_ID9,
+		SUM(IFNULL(DOC_ORG_ID10,
+		0)) AS DOC_ORG_ID10,
+		SUM(IFNULL(DOC_ORG_ID11, 0)) AS DOC_ORG_ID11,
+		SUM(IFNULL(DOC_ORG_ID12, 0)) AS DOC_ORG_ID12,
+		SUM(IFNULL(DOC_ORG_ID13,
+		0)) AS DOC_ORG_ID13
+		FROM
+		DOCRMT850
+		LEFT JOIN (
+		SELECT
+		ACP_CD,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		1
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID0,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		1
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID1,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		1
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID2,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		1
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID3,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		1
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID4,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		1
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID5,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		1
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID6,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		1
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID7,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		1
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID8,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		1
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID9,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		1
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID10,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		1
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID11,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		1
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID12,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		1
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID13
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD &lt;&gt; DOC_ORG_ID
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		AND DOCRM_STUS NOT IN ('0', '1')
+		) DOCRMT200 ON DOCRMT200.ACP_CD = DOCRMT850.PHRASE_KEY
+		WHERE
+		DOCRMT850.PHRASE_TYPE_KEY = 'ORG_ID'
+		) A
+		ORDER BY CAST(A.SORT_NO AS DECIMAL(10,2))
+
+	</select>
+	<!-- 單一處無選稅目別 -->
+	<select id="queryDOCRMT610_TAX" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		*
+		FROM
+		(
+		SELECT
+		DOCRMT850.PHRASE_TITLE,
+		DOCRMT850.SORT_NO,
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		TAX_TP = PHRASE_KEY
+		AND DOCRM_STUS NOT IN ('0','1')
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		) AS 'DOCRM_APPLY',
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		TAX_TP = PHRASE_KEY
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		AND DOCRM_STUS NOT IN ('0','1')
+		AND ACP_CD &lt;&gt; DOC_ORG_ID
+
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		
+		) AS 'ALL_CHANGE',
+		SUM(IFNULL(DOC_ORG_ID0, 0)) AS DOC_ORG_ID0,
+		SUM(IFNULL(DOC_ORG_ID1, 0)) AS DOC_ORG_ID1,
+		SUM(IFNULL(DOC_ORG_ID2, 0)) AS DOC_ORG_ID2,
+		SUM(IFNULL(DOC_ORG_ID3, 0)) AS DOC_ORG_ID3,
+		SUM(IFNULL(DOC_ORG_ID4, 0)) AS DOC_ORG_ID4,
+		SUM(IFNULL(DOC_ORG_ID5, 0)) AS DOC_ORG_ID5,
+		SUM(IFNULL(DOC_ORG_ID6, 0)) AS DOC_ORG_ID6,
+		SUM(IFNULL(DOC_ORG_ID7, 0)) AS DOC_ORG_ID7,
+		SUM(IFNULL(DOC_ORG_ID8, 0)) AS DOC_ORG_ID8,
+		SUM(IFNULL(DOC_ORG_ID9, 0)) AS DOC_ORG_ID9,
+		SUM(IFNULL(DOC_ORG_ID10, 0)) AS DOC_ORG_ID10,
+		SUM(IFNULL(DOC_ORG_ID11, 0)) AS DOC_ORG_ID11,
+		SUM(IFNULL(DOC_ORG_ID12, 0)) AS DOC_ORG_ID12,
+		SUM(IFNULL(DOC_ORG_ID13, 0)) AS DOC_ORG_ID13
+		FROM
+		DOCRMT850
+		LEFT JOIN (
+		SELECT
+		TAX_TP,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		1
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID0,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		1
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID1,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		1
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID2,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		1
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID3,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		1
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID4,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		1
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID5,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		1
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID6,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		1
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID7,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		1
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID8,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		1
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID9,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		1
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID10,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		1
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID11,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		1
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID12,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		1
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID13
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD &lt;&gt; DOC_ORG_ID
+		AND DOCRM_STUS NOT IN ('0', '1')
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		
+		) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT850.PHRASE_KEY
+		WHERE
+		DOCRMT850.PHRASE_TYPE_KEY = 'TAX_TP'
+		GROUP BY
+		SORT_NO,PHRASE_TITLE
+
+		UNION ALL
+		SELECT '共計','1000',
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		DOCRM_STUS NOT IN ('0','1')
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		) AS 'DOCRM_APPLY',
+		(
+		SELECT
+		COUNT(*)
+		FROM
+		DOCRMT200
+		WHERE
+		TAX_TP = PHRASE_KEY
+		AND DOCRM_STUS NOT IN ('0','1')
+		AND ACP_CD &lt;&gt; DOC_ORG_ID
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		) AS 'ALL_CHANGE',
+		SUM(IFNULL(DOC_ORG_ID0, 0)) AS DOC_ORG_ID0,
+		SUM(IFNULL(DOC_ORG_ID1, 0)) AS DOC_ORG_ID1,
+		SUM(IFNULL(DOC_ORG_ID2, 0)) AS DOC_ORG_ID2,
+		SUM(IFNULL(DOC_ORG_ID3, 0)) AS DOC_ORG_ID3,
+		SUM(IFNULL(DOC_ORG_ID4, 0)) AS DOC_ORG_ID4,
+		SUM(IFNULL(DOC_ORG_ID5, 0)) AS DOC_ORG_ID5,
+		SUM(IFNULL(DOC_ORG_ID6, 0)) AS DOC_ORG_ID6,
+		SUM(IFNULL(DOC_ORG_ID7, 0)) AS DOC_ORG_ID7,
+		SUM(IFNULL(DOC_ORG_ID8, 0)) AS DOC_ORG_ID8,
+		SUM(IFNULL(DOC_ORG_ID9, 0)) AS DOC_ORG_ID9,
+		SUM(IFNULL(DOC_ORG_ID10, 0)) AS DOC_ORG_ID10,
+		SUM(IFNULL(DOC_ORG_ID11, 0)) AS DOC_ORG_ID11,
+		SUM(IFNULL(DOC_ORG_ID12, 0)) AS DOC_ORG_ID12,
+		SUM(IFNULL(DOC_ORG_ID13, 0)) AS DOC_ORG_ID13
+		FROM
+		DOCRMT850
+		LEFT JOIN (
+		SELECT
+		TAX_TP,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		1
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID0,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		1
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID1,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		1
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID2,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		1
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID3,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		1
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID4,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		1
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID5,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		1
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID6,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		1
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID7,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		1
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID8,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		1
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID9,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		1
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID10,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		1
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID11,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		1
+		WHEN 'E85' THEN
+		0
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID12,
+		(
+		CASE DOC_ORG_ID
+		WHEN 'E77' THEN
+		0
+		WHEN 'E86' THEN
+		0
+		WHEN 'E87' THEN
+		0
+		WHEN 'E88' THEN
+		0
+		WHEN 'E89' THEN
+		0
+		WHEN 'E91' THEN
+		0
+		WHEN 'E78' THEN
+		0
+		WHEN 'E79' THEN
+		0
+		WHEN 'E80' THEN
+		0
+		WHEN 'E81' THEN
+		0
+		WHEN 'E82' THEN
+		0
+		WHEN 'E83' THEN
+		0
+		WHEN 'E84' THEN
+		0
+		WHEN 'E85' THEN
+		1
+		ELSE
+		0
+		END
+		) AS DOC_ORG_ID13
+		FROM
+		DOCRMT200
+		WHERE
+		ACP_CD &lt;&gt; DOC_ORG_ID
+		AND DOCRM_STUS NOT IN ('0', '1')
+		<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+		</if>
+		<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+		</if>
+		<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+		</if>
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+		</if>
+		) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT850.PHRASE_KEY
+		WHERE
+		DOCRMT850.PHRASE_TYPE_KEY = 'TAX_TP'
+		) A
+		ORDER BY
+		CAST(A.SORT_NO AS DECIMAL(10, 2))
+
+
+	</select>
+
+
+	<select id="queryDOCRMT610_DOCRM_TP" parameterType="HashMap" resultType="HashMap">
+
+	SELECT
+	DOCRMT820.DOCRM_TP_NM,
+	(
+	SELECT
+	COUNT(*)
+	FROM
+	DOCRMT200
+	WHERE
+	DOCRMT200.TAX_TP = DOCRMT820.TAX_TP
+	AND DOCRMT200.DOCRM_TP = DOCRMT820.DOCRM_TP
+	AND DOCRM_STUS NOT IN ('0', '1')
+	<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+	</if>
+	<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+	</if>
+	<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+	</if>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+	</if>
+	) AS 'DOCRM_APPLY',
+	(
+	SELECT
+	COUNT(*)
+	FROM
+	DOCRMT200
+	WHERE
+	DOCRMT200.TAX_TP = DOCRMT820.TAX_TP
+	AND DOCRMT200.DOCRM_TP = DOCRMT820.DOCRM_TP
+	AND DOCRM_STUS NOT IN ('0', '1')
+	<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+	</if>
+	<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+	</if>
+	<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+	</if>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+	</if>
+	AND ACP_CD &lt;&gt; DOC_ORG_ID
+	) AS 'ALL_CHANGE',
+	SUM(IFNULL(DOC_ORG_ID0, 0)) AS
+	DOC_ORG_ID0,
+	SUM(IFNULL(DOC_ORG_ID1, 0)) AS DOC_ORG_ID1,
+	SUM(IFNULL(DOC_ORG_ID2, 0)) AS DOC_ORG_ID2,
+	SUM(IFNULL(DOC_ORG_ID3, 0))
+	AS DOC_ORG_ID3,
+	SUM(IFNULL(DOC_ORG_ID4, 0)) AS DOC_ORG_ID4,
+	SUM(IFNULL(DOC_ORG_ID5, 0)) AS DOC_ORG_ID5,
+	SUM(IFNULL(DOC_ORG_ID6, 0))
+	AS DOC_ORG_ID6,
+	SUM(IFNULL(DOC_ORG_ID7, 0)) AS DOC_ORG_ID7,
+	SUM(IFNULL(DOC_ORG_ID8, 0)) AS DOC_ORG_ID8,
+	SUM(IFNULL(DOC_ORG_ID9, 0))
+	AS DOC_ORG_ID9,
+	SUM(IFNULL(DOC_ORG_ID10, 0)) AS DOC_ORG_ID10,
+	SUM(IFNULL(DOC_ORG_ID11, 0)) AS DOC_ORG_ID11,
+	SUM(IFNULL(DOC_ORG_ID12,
+	0)) AS DOC_ORG_ID12,
+	SUM(IFNULL(DOC_ORG_ID13, 0)) AS DOC_ORG_ID13
+	FROM
+	DOCRMT820
+	LEFT JOIN (
+	SELECT
+	DOCRM_TP,
+	TAX_TP,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	1
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID0,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	1
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID1,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	1
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID2,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	1
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID3,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	1
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID4,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	1
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID5,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	1
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID6,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	1
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID7,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	1
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID8,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	1
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID9,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	1
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID10,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	1
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID11,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	1
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID12,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	1
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID13
+	FROM
+	DOCRMT200
+	WHERE
+	ACP_CD &lt;&gt; DOC_ORG_ID
+	AND DOCRM_STUS NOT IN ('0', '1')
+	<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+	</if>
+	<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+	</if>
+	<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+	</if>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+	</if>
+	) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT820.TAX_TP
+	AND DOCRMT820.DOCRM_TP = DOCRMT200.DOCRM_TP
+	<where>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND DOCRMT820.TAX_TP = #{TAX_TP}
+	</if>
+	</where>
+	GROUP BY
+	DOCRM_TP_NM
+
+	UNION ALL
+
+	SELECT '共計',
+
+	(
+	SELECT
+	COUNT(*)
+	FROM
+	DOCRMT200
+	WHERE
+	DOCRMT200.TAX_TP = DOCRMT820.TAX_TP
+	AND DOCRMT200.DOCRM_TP = DOCRMT820.DOCRM_TP
+	<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+	</if>
+	<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+	</if>
+	<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+	</if>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+	</if>
+	AND DOCRM_STUS NOT IN ('0', '1')
+	) AS 'DOCRM_APPLY',
+	(
+	SELECT
+	COUNT(*)
+	FROM
+	DOCRMT200
+	WHERE
+	DOCRMT200.TAX_TP = DOCRMT820.TAX_TP
+	AND DOCRMT200.DOCRM_TP = DOCRMT820.DOCRM_TP
+	AND DOCRM_STUS NOT IN ('0', '1')
+	<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+	</if>
+	<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+	</if>
+	<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+	</if>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+	</if>
+	AND ACP_CD &lt;&gt; DOC_ORG_ID
+	) AS 'ALL_CHANGE',
+	SUM(IFNULL(DOC_ORG_ID0, 0)) AS
+	DOC_ORG_ID0,
+	SUM(IFNULL(DOC_ORG_ID1, 0)) AS DOC_ORG_ID1,
+	SUM(IFNULL(DOC_ORG_ID2, 0)) AS DOC_ORG_ID2,
+	SUM(IFNULL(DOC_ORG_ID3, 0))
+	AS DOC_ORG_ID3,
+	SUM(IFNULL(DOC_ORG_ID4, 0)) AS DOC_ORG_ID4,
+	SUM(IFNULL(DOC_ORG_ID5, 0)) AS DOC_ORG_ID5,
+	SUM(IFNULL(DOC_ORG_ID6, 0))
+	AS DOC_ORG_ID6,
+	SUM(IFNULL(DOC_ORG_ID7, 0)) AS DOC_ORG_ID7,
+	SUM(IFNULL(DOC_ORG_ID8, 0)) AS DOC_ORG_ID8,
+	SUM(IFNULL(DOC_ORG_ID9, 0))
+	AS DOC_ORG_ID9,
+	SUM(IFNULL(DOC_ORG_ID10, 0)) AS DOC_ORG_ID10,
+	SUM(IFNULL(DOC_ORG_ID11, 0)) AS DOC_ORG_ID11,
+	SUM(IFNULL(DOC_ORG_ID12,
+	0)) AS DOC_ORG_ID12,
+	SUM(IFNULL(DOC_ORG_ID13, 0)) AS DOC_ORG_ID13
+	FROM
+	DOCRMT820
+	LEFT JOIN (
+	SELECT
+	DOCRM_TP,
+	TAX_TP,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	1
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID0,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	1
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID1,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	1
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID2,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	1
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID3,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	1
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID4,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	1
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID5,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	1
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID6,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	1
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID7,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	1
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID8,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	1
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID9,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	1
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID10,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	1
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID11,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	1
+	WHEN 'E85' THEN
+	0
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID12,
+	(
+	CASE DOC_ORG_ID
+	WHEN 'E77' THEN
+	0
+	WHEN 'E86' THEN
+	0
+	WHEN 'E87' THEN
+	0
+	WHEN 'E88' THEN
+	0
+	WHEN 'E89' THEN
+	0
+	WHEN 'E91' THEN
+	0
+	WHEN 'E78' THEN
+	0
+	WHEN 'E79' THEN
+	0
+	WHEN 'E80' THEN
+	0
+	WHEN 'E81' THEN
+	0
+	WHEN 'E82' THEN
+	0
+	WHEN 'E83' THEN
+	0
+	WHEN 'E84' THEN
+	0
+	WHEN 'E85' THEN
+	1
+	ELSE
+	0
+	END
+	) AS DOC_ORG_ID13
+	FROM
+	DOCRMT200
+	WHERE
+	ACP_CD &lt;&gt; DOC_ORG_ID
+	AND DOCRM_STUS NOT IN ('0', '1')
+	<if test='APPLY_DATE_YEAR != null and APPLY_DATE_YEAR != ""'>
+			AND SUBSTR(APPLY_DATE,1,3)= #{APPLY_DATE_YEAR}
+	</if>
+	<if test='APPLY_DATE_Mo != null and APPLY_DATE_Mo != ""'>
+			AND SUBSTR(APPLY_DATE,4,2)= #{APPLY_DATE_Mo}
+	</if>
+	<if test='DOC_ORG_ID != null and DOC_ORG_ID != ""'>
+			AND ACP_CD = #{DOC_ORG_ID}
+	</if>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND TAX_TP = #{TAX_TP}
+	</if>
+	) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT820.TAX_TP
+	AND DOCRMT820.DOCRM_TP = DOCRMT200.DOCRM_TP
+	<where>
+	<if test='TAX_TP != null and TAX_TP != ""'>
+			AND DOCRMT820.TAX_TP = #{TAX_TP}
+	</if>
+	</where>
+	
+	</select>
+
+<!-- 取查詢條件中文名稱 -->
+<select id="queryT850ORG_ID" parameterType="HashMap" resultType="HashMap">
+SELECT
+	PHRASE_KEY,
+	PHRASE_TITLE AS ORG_ID
+FROM
+	docrmt850
+<where>
+	PHRASE_TYPE_KEY = 'ORG_ID'
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and PHRASE_KEY = #{DOC_ORG_ID} </if>
+</where>
+
+</select>
+
+<!-- 取查詢條件中文名稱 -->
+<select id="queryT850TAX_TP" parameterType="HashMap" resultType="HashMap">
+SELECT
+	PHRASE_KEY,
+	PHRASE_TITLE AS TAX_TP
+FROM
+	docrmt850
+<where>
+	PHRASE_TYPE_KEY = 'TAX_TP'
+<if test="TAX_TP != null and TAX_TP != ''">AND PHRASE_KEY = #{TAX_TP} </if>
+</where>
+
+</select>
+
+</mapper>

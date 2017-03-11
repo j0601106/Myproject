@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/global/decorators">
+
+	<decorator name="template_frame_1_main" page="template_frame_1_main.jsp" />
+
+   	<decorator name="template_1_1_main" page="template_1_1_main.jsp" />
+
+   	<decorator name="template_1_2_main" page="template_1_2_main.jsp" />
+   	<decorator name="template_1_2_sub" page="template_1_2_sub.jsp" />
+
+   	<decorator name="template_2_1_main" page="template_1_2_main.jsp" />
+
+<!-- 
+   	<decorator name="template_1_3_main" page="template_1_3_main.jsp" />
+   	<decorator name="template_1_4_main" page="template_1_4_main.jsp" />
+ -->
+   	
+<!-- 
+   	<decorator name="template_2_1_sub" page="template_2_1_sub.jsp" />
+   	<decorator name="template_2_1_sub_1" page="template_2_1_sub_1.jsp" />
+   	
+   	<decorator name="template_2_2_main" page="template_2_2_main.jsp" />
+   	<decorator name="template_2_2_sub" page="template_2_2_sub.jsp" />
+   	
+   	<decorator name="template_2_3_main" page="template_2_3_main.jsp" />
+   	<decorator name="template_2_3_sub" page="template_2_3_sub.jsp" />
+ -->
+<!--     <excludes>
+		<pattern>/resources/*/*.*</pattern>
+		<pattern>/WEB-INF/*/*.*</pattern>
+	</excludes> -->
+
+</decorators>

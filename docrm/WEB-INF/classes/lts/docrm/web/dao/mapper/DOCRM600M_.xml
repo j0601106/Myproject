@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM600M_">
+
+<!-- 機關別   -->
+	<select id="queryORG_ID" parameterType="HashMap" resultType="HashMap">
+		SELECT
+	PHRASE_TITLE,
+	(
+		SELECT
+			COUNT(*)
+		FROM
+			DOCRMT200
+		<where>
+			ACP_CD = PHRASE_KEY
+<if test="TAX_TP != null and TAX_TP != ''">and TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+		</where>	
+	) AS TOTAL,
+	SUM(IFNULL(STUS0, 0)) AS STUS0,
+	SUM(IFNULL(STUS1, 0)) AS STUS1,
+	SUM(IFNULL(STUS2, 0)) AS STUS2,
+	SUM(IFNULL(STUS3, 0)) AS STUS3,
+	SUM(IFNULL(STUS4, 0)) AS STUS4,
+	SUM(IFNULL(STUS5, 0)) AS STUS5
+FROM DOCRMT850
+LEFT JOIN (
+	SELECT
+		ACP_CD,
+		APPLY_DATE,
+		TAX_TP,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				1
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS0,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				1
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS1,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				1
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS2,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				1
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS3,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				1
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS4,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				1
+			ELSE
+				0
+			END
+		) AS STUS5
+	FROM
+		DOCRMT200
+	<where>
+<if test="TAX_TP != null and TAX_TP != ''">and DOCRMT200.TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+	</where>
+) DOCRMT200 ON DOCRMT200.ACP_CD = DOCRMT850.PHRASE_KEY
+<where>
+	DOCRMT850.PHRASE_TYPE_KEY = 'ORG_ID'
+</where>
+GROUP BY
+	PHRASE_TITLE
+union ALL
+SELECT '共計',
+	(
+		SELECT
+			COUNT(*)
+		FROM
+			DOCRMT200
+		<where>
+<if test="TAX_TP != null and TAX_TP != ''">and TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+		</where>	
+	) AS TOTAL,
+	SUM(IFNULL(STUS0, 0)) AS STUS0,
+	SUM(IFNULL(STUS1, 0)) AS STUS1,
+	SUM(IFNULL(STUS2, 0)) AS STUS2,
+	SUM(IFNULL(STUS3, 0)) AS STUS3,
+	SUM(IFNULL(STUS4, 0)) AS STUS4,
+	SUM(IFNULL(STUS5, 0)) AS STUS5
+FROM DOCRMT850
+LEFT JOIN (
+	SELECT
+		ACP_CD,
+		APPLY_DATE,
+		TAX_TP,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				1
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS0,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				1
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS1,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				1
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS2,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				1
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS3,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				1
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS4,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				1
+			ELSE
+				0
+			END
+		) AS STUS5
+	FROM
+		DOCRMT200
+	<where>
+<if test="TAX_TP != null and TAX_TP != ''">and DOCRMT200.TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+	</where>
+) DOCRMT200 ON DOCRMT200.ACP_CD = DOCRMT850.PHRASE_KEY
+<where>
+	DOCRMT850.PHRASE_TYPE_KEY = 'ORG_ID'
+</where>
+	</select>
+
+<!-- 稅目別 -->
+	<select id="queryTAX_TP" parameterType="HashMap" resultType="HashMap">
+		SELECT
+	PHRASE_TITLE,
+	(
+		SELECT
+			COUNT(*)
+		FROM
+			DOCRMT200
+		<where>
+		TAX_TP = PHRASE_KEY
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and ACP_CD= #{DOC_ORG_ID}</if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and ACP_CD= #{DOC_ORG_ID2}</if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+		</where>
+	) AS TOTAL,
+	SUM(IFNULL(STUS0, 0)) AS STUS0,
+	SUM(IFNULL(STUS1, 0)) AS STUS1,
+	SUM(IFNULL(STUS2, 0)) AS STUS2,
+	SUM(IFNULL(STUS3, 0)) AS STUS3,
+	SUM(IFNULL(STUS4, 0)) AS STUS4,
+	SUM(IFNULL(STUS5, 0)) AS STUS5
+FROM DOCRMT850
+LEFT JOIN (
+	SELECT
+		ACP_CD,
+		APPLY_DATE,
+		TAX_TP,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				1
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS0,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				1
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS1,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				1
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS2,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				1
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS3,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				1
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS4,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				1
+			ELSE
+				0
+			END
+		) AS STUS5
+	FROM
+		DOCRMT200
+	<where>
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID} </if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID2} </if>
+<if test="TAX_TP != null and TAX_TP != ''">and DOCRMT200.TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+	</where>
+) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT850.PHRASE_KEY
+<where>
+	DOCRMT850.PHRASE_TYPE_KEY = 'TAX_TP'
+</where>
+GROUP BY
+	PHRASE_TITLE
+
+union ALL
+SELECT
+	'共計',
+	(
+		SELECT
+			COUNT(*)
+		FROM
+			DOCRMT200
+		<where>
+<if test="TAX_TP != null and TAX_TP != ''">and TAX_TP = #{TAX_TP} </if>
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and ACP_CD= #{DOC_ORG_ID}</if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and ACP_CD= #{DOC_ORG_ID2}</if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+		</where>
+	) AS TOTAL,
+	SUM(IFNULL(STUS0, 0)) AS STUS0,
+	SUM(IFNULL(STUS1, 0)) AS STUS1,
+	SUM(IFNULL(STUS2, 0)) AS STUS2,
+	SUM(IFNULL(STUS3, 0)) AS STUS3,
+	SUM(IFNULL(STUS4, 0)) AS STUS4,
+	SUM(IFNULL(STUS5, 0)) AS STUS5
+FROM DOCRMT850
+LEFT JOIN (
+	SELECT
+		ACP_CD,
+		APPLY_DATE,
+		TAX_TP,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				1
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS0,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				1
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS1,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				1
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS2,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				1
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS3,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				1
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS4,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				1
+			ELSE
+				0
+			END
+		) AS STUS5
+	FROM
+		DOCRMT200
+	<where>
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID} </if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID2} </if>
+<if test="TAX_TP != null and TAX_TP != ''">and DOCRMT200.TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+	</where>
+) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT850.PHRASE_KEY
+<where>
+	DOCRMT850.PHRASE_TYPE_KEY = 'TAX_TP'
+</where>
+</select>
+
+<!-- 表單種類 -->
+<select id="queryDOCRM_TP_NM" parameterType="HashMap" resultType="HashMap">
+SELECT
+A.TITLE,
+COALESCE((	STUS0 + STUS1 + STUS2 + STUS3 + STUS4 + STUS5),'0') AS TOTAL,
+COALESCE(STUS0,'0')AS STUS0,
+COALESCE(STUS1,'0')AS STUS1,
+COALESCE(STUS2,'0')AS STUS2,
+COALESCE(STUS3,'0')AS STUS3,
+COALESCE(STUS4,'0')AS STUS4,
+COALESCE(STUS5,'0')AS STUS5
+FROM
+(
+SELECT
+	docrmt820.DOCRM_TP_NM AS TITLE,	
+	SUM(IFNULL(STUS0, 0)) AS STUS0,
+	SUM(IFNULL(STUS1, 0)) AS STUS1,
+	SUM(IFNULL(STUS2, 0)) AS STUS2,
+	SUM(IFNULL(STUS3, 0)) AS STUS3,
+	SUM(IFNULL(STUS4, 0)) AS STUS4,
+	SUM(IFNULL(STUS5, 0)) AS STUS5
+FROM DOCRMT820
+LEFT JOIN docrmt850 ON docrmt820.TAX_TP = docrmt850.PHRASE_KEY
+LEFT JOIN (
+	SELECT
+		ACP_CD,
+		APPLY_DATE,
+		TAX_TP,
+		DOCRM_TP,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				1
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS0,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				1
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS1,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				1
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS2,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				1
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS3,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				1
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS4,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				1
+			ELSE
+				0
+			END
+		) AS STUS5
+	FROM
+		DOCRMT200
+	<where>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID} </if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID2} </if>
+	</where>
+) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT850.PHRASE_KEY
+AND DOCRMT200.DOCRM_TP = docrmt820.DOCRM_TP
+<where>
+	DOCRMT850.PHRASE_TYPE_KEY = 'TAX_TP'
+<if test="TAX_TP != null and TAX_TP != ''">AND DOCRMT820.TAX_TP = #{TAX_TP} </if>
+</where>
+GROUP BY
+	DOCRM_TP_NM
+union ALL
+
+SELECT '共計' AS TITLE,
+	SUM(IFNULL(STUS0, 0)) AS STUS0,
+	SUM(IFNULL(STUS1, 0)) AS STUS1,
+	SUM(IFNULL(STUS2, 0)) AS STUS2,
+	SUM(IFNULL(STUS3, 0)) AS STUS3,
+	SUM(IFNULL(STUS4, 0)) AS STUS4,
+	SUM(IFNULL(STUS5, 0)) AS STUS5
+FROM DOCRMT820
+LEFT JOIN docrmt850 ON docrmt820.TAX_TP = docrmt850.PHRASE_KEY
+LEFT JOIN (
+	SELECT
+		ACP_CD,
+		APPLY_DATE,
+		TAX_TP,
+		DOCRM_TP,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				1
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS0,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				1
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS1,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				1
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS2,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				1
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS3,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				1
+			WHEN '5' THEN
+				0
+			ELSE
+				0
+			END
+		) AS STUS4,
+		(
+			CASE DOCRM_STUS
+			WHEN '0' THEN
+				0
+			WHEN '1' THEN
+				0
+			WHEN '2' THEN
+				0
+			WHEN '3' THEN
+				0
+			WHEN '4' THEN
+				0
+			WHEN '5' THEN
+				1
+			ELSE
+				0
+			END
+		) AS STUS5
+	FROM
+		DOCRMT200
+	<where>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(DOCRMT200.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(DOCRMT200.APPLY_DATE,4,2) = #{MONTH} </if>
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID} </if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and DOCRMT200.ACP_CD = #{DOC_ORG_ID2} </if>
+	</where>
+) DOCRMT200 ON DOCRMT200.TAX_TP = DOCRMT850.PHRASE_KEY
+AND DOCRMT200.DOCRM_TP = docrmt820.DOCRM_TP
+<where>
+	DOCRMT850.PHRASE_TYPE_KEY = 'TAX_TP'
+<if test="TAX_TP != null and TAX_TP != ''">AND DOCRMT820.TAX_TP = #{TAX_TP} </if>
+</where>
+) A
+</select>
+
+<!-- 取查詢條件中文名稱 -->
+<select id="queryT850ORG_ID" parameterType="HashMap" resultType="HashMap">
+SELECT
+	PHRASE_KEY,
+	PHRASE_TITLE AS ORG_ID
+FROM
+	docrmt850
+<where>
+	PHRASE_TYPE_KEY = 'ORG_ID'
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and PHRASE_KEY = #{DOC_ORG_ID} </if>
+<if test="DOC_ORG_ID2 != null and DOC_ORG_ID2 != ''">and PHRASE_KEY = #{DOC_ORG_ID2} </if> 
+</where>
+
+</select>
+
+<!-- 取查詢條件中文名稱 -->
+<select id="queryT850TAX_TP" parameterType="HashMap" resultType="HashMap">
+SELECT
+	PHRASE_KEY,
+	PHRASE_TITLE AS TAX_TP
+FROM
+	docrmt850
+<where>
+	PHRASE_TYPE_KEY = 'TAX_TP'
+<if test="TAX_TP != null and TAX_TP != ''">AND PHRASE_KEY = #{TAX_TP} </if>
+</where>
+
+</select>
+
+</mapper>

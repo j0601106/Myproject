@@ -1,0 +1,116 @@
+[REPORT]
+DBOWNER=ELT
+HEADER=
+FOOTER=
+PORTRAIT=N
+LEFTMARGIN=10
+RIGHTMARGIN=5
+TOPMARGIN=10
+BOTTOMMARGIN=10
+AUTOPRINT=N
+JUMP=Y
+FILLLINE=N
+SIZE=32
+PAGERANGE=
+GROUPFIELD=DST_CD
+GROUPJUMP=DST_CD
+SHOW_GROUP_COLUMN=N
+GROUPPAGERESET=N
+GROUPSERNORESET=N
+COUNTCOLUMN=
+SQL=
+WHERE=WHERE
+COLUMNNAME=DST_CD,IDN_BAN,RESP_BAN,RESP_NM,APPR_PAY_DOCU_NO,TEL_NO,UPDATE_CD,LOSN
+SUBREPORT=
+SUBREPORTKEY=
+[HEAD]
+HEADERSIZE=1
+LINE=34
+HEAD1=<style type="text/css">
+HEAD2=.condit {font-size: 8px}
+HEAD3=.size {font-size: 12px}
+HEAD4=.title {font-size: 12px}
+HEAD5=</style>
+HEAD6=  <table width="90%" border="0" cellspacing="0" cellpadding="0" align="center">
+HEAD7=  <tr>  <td width="100%" align="center"><font size="4">印花稅彙總繳納稅籍清冊</font></td>  </tr>
+HEAD8=  <tr> <td width="100%" align="lift" class="condit"> 查詢條件：&1                                                                                                                                                                                                 &2 
+HEAD9=  </tr>
+HEAD10=  <tr> <td width="100%" align="lift" class="condit">查詢時間：&SYSDATE </td>  </tr>
+HEAD11=   <tr align="center" valign="middle">
+HEAD12=    <td colspan="7">==============================================================================================================</td>
+HEAD13=  </tr>
+HEAD14=  </table>
+HEAD15=
+HEAD16=
+HEAD17=
+HEAD18=<TABLE WIDTH="90%" BORDER=0 align="center" cellspacing="0" cellpadding="0">
+HEAD19=        <TR align="center"> 
+HEAD20=          <TD width="8%" align="left" nowrap class="title">統一編號</TD>
+HEAD21=          <TD width="25%" align="left" nowrap class="title">負責人IDN</TD>
+HEAD22=          <TD width="26%" align="left" nowrap class="title">負責人</TD>
+HEAD23=          <TD width="21%" align="left" nowrap class="title">核准報繳文號</TD>
+HEAD24=          <TD width="8%" align="left" nowrap class="title">電      話</TD>
+HEAD25=          <TD width="12%" colspan="2" align="left" nowrap class="title">異動代號</TD>
+HEAD26=        </TR>
+HEAD27=        <TR align="center">
+HEAD28=          <TD align="left" nowrap class="title">稅籍編號</TD>
+HEAD29=          <TD width="12%" colspan="6" align="left" nowrap class="title">異動日期</TD>
+HEAD30=        </TR>
+HEAD31=        
+HEAD32=   <tr align="center" valign="middle">
+HEAD33=    <td colspan="7">==============================================================================================================</td>
+HEAD34=  </tr>
+[BODY]
+BODYSIZE=2
+JUMPLINESIZE=1
+JUMPLINESTR=
+BODYLINESIZE=1
+LINESTR=
+LINE=14
+BODY1=         <TR align="center"> 
+BODY2=<TD width="8%" align="left" nowrap class="size">&3        &nbsp;</TD>
+BODY3=          <TD width="25%" align="left" nowrap class="size">&4        </TD>
+BODY4=          <TD width="26%" align="left" nowrap class="size">&5           </TD>
+BODY5=          <TD width="21%" align="left" nowrap class="size">&6                          </TD>
+BODY6=          <TD width="8%" align="left" nowrap class="size">&7       </TD>
+BODY7=          <TD width="12%" colspan="2" align="left" nowrap class="size">&8</TD>
+BODY8=        </TR>
+BODY9=        <TR align="center">
+BODY10=          <TD align="left" nowrap class="size">&9        </TD>
+BODY11=          <TD align="left" width="12%" colspan="6" nowrap class="size">    </TD>
+BODY12=        </TR>
+BODY13=       
+BODY14=  <tr><td colspan="7"><hr></td></tr>
+[FOOT]
+FOOTSIZE=2
+LINE=1
+FOOT1=</TABLE>
+[PAGEBODY]
+PAGEBODYSIZE=1
+LINE=0
+[GROUPBODY1]
+GROUPBODYSIZE=2
+LINE=0
+[LASTFOOT]
+LASTFOOTSIZE=1
+LINE=0
+[FIELD]
+COUNT=9
+M1=[自定變數].CONDITION;;@................................................................................................................................................................................................@
+F1=CONDITION,M,194
+M2=DST_CD;機關代號;@@
+F2=DST_CD,M,13
+M3=IDN_BAN;統一 編號;@........@
+F3=IDN_BAN,M,9
+M4=RESP_BAN;負責人IDN;@........@
+F4=RESP_BAN,M,10
+M5=RESP_NM;BOSS;@...........@
+F5=RESP_NM,M,13
+M6=APPR_PAY_DOCU_NO;核准報繳文號;@..........................@
+F6=APPR_PAY_DOCU_NO,M,9
+M7=TEL_NO;申報單位電話;@.......@
+F7=TEL_NO,M,2
+M8=UPDATE_CD;異動代號;@@
+F8=UPDATE_CD,M,2
+M9=LOSN;稅籍編號;@........@
+F9=LOSN,M,10

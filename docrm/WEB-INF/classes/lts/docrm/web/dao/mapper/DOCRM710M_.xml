@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM710M_">
+	<!-- V1查詢SQL -->
+	<select id="queryDOCRMT710" parameterType="HashMap" resultType="HashMap">
+		SELECT
+		A.DOCRM_NO
+		,A.TAX_TP
+		,D.PHRASE_TITLE
+		,A.DOCRM_TP
+		,C.DOCRM_TP_NM
+		,A.APPLY_NM
+		,A.APPLY_DATE
+		,A.CPL_DATE
+		,(CASE WHEN DOCRMT720.DOCRM_NO IS NULL THEN '未完成' ELSE '已完成' END) AS
+		ADD_STUS
+		,A.DOC_ORG_ID
+		,E.PHRASE_TITLE AS DOG_ORG
+		,A.DOC_STF_NM
+		,A.APPLY_IDN
+
+
+		FROM docrmt200 A
+		LEFT JOIN docrmt820 C
+		ON C.TAX_TP = A.TAX_TP
+		AND C.DOCRM_TP = A.DOCRM_TP
+		LEFT JOIN docrmt850 D
+		ON D.PHRASE_KEY=A.TAX_TP
+		AND D.PHRASE_TYPE_KEY = 'TAX_TP'
+		LEFT JOIN docrmt850 E
+		ON E.PHRASE_KEY=A.DOC_ORG_ID
+		AND E.PHRASE_TYPE_KEY = 'ORG_ID'
+		LEFT JOIN
+		(SELECT DISTINCT DOCRM_NO
+		FROM DOCRMT720) DOCRMT720
+		ON A.DOCRM_NO = DOCRMT720.DOCRM_NO
+		where A.DOCRM_STUS=5
+		<!-- 查詢案件編號 -->
+		<if test='DOCRM_NO  != null and DOCRM_NO  != ""'>
+			AND A.DOCRM_NO = #{DOCRM_NO }
+		</if>
+		<!-- 查詢稅目別 -->
+		<if test='TAX_TP != null and TAX_TP != ""'>
+			AND A.TAX_TP = #{TAX_TP}
+		</if>
+		<!-- 查詢案件種類 -->
+		<if test="DOCRM_TP != null and DOCRM_TP != '' ">
+			AND A.DOCRM_TP = #{DOCRM_TP}
+		</if>
+		<!-- 查詢申請人 -->
+		<if test="APPLY_NM  != null and APPLY_NM  != ''">
+			AND A.APPLY_NM = #{APPLY_NM}
+		</if>
+		<!-- 查詢身分證字號 -->
+		<if test="APPLY_IDN != null and APPLY_IDN != '' ">
+			AND A.APPLY_IDN = #{APPLY_IDN}
+		</if>
+
+		<!-- 查詢申請日期 -->
+		<if test="APPLY_DATE_B != null and APPLY_DATE_B != ''">
+			AND A.APPLY_DATE &gt;= #{APPLY_DATE_B}
+		</if>
+		<if test="APPLY_DATE_E != null and APPLY_DATE_E != ''">
+			AND A.APPLY_DATE &lt;= #{APPLY_DATE_E}
+		</if>
+
+		<!-- 查詢狀態 -->
+		<if test="ANS_STUS != null and ANS_STUS eq 'Y'.toString() ">
+			AND DOCRMT720.DOCRM_NO IS NOT NULL
+		</if>
+		<if test="ANS_STUS != null and ANS_STUS eq 'N'.toString() ">
+			AND DOCRMT720.DOCRM_NO IS NULL
+		</if>
+	</select>
+	<!--查詢題目與答題人SQL -->
+	<select id="queryEditDOCRMT710" parameterType="HashMap"
+		resultType="HashMap">
+		SELECT
+		A.DOCRM_NO
+		,B.QUESTION_ID
+		,D.QUESTION
+
+		FROM DOCRMT200 A
+		LEFT JOIN DOCRMT720 B
+		ON A.DOCRM_NO=B.DOCRM_NO
+		LEFT JOIN DOCRMT700 D
+		ON B.QUESTION_ID=D.QUESTION_ID
+
+
+
+	</select>
+	<!--抓取T700題目 -->
+	<select id="queryDOCRMT710_QUESTION" parameterType="HashMap"
+		resultType="HashMap">
+		SELECT DISTINCT
+		A.QUESTION_ID,
+		B.QUESTION
+
+		FROM DOCRMT710 A
+		LEFT JOIN docrmt700 B
+		ON A.QUESTION_ID = B.QUESTION_ID
+		WHERE B.stus='Y'
+
+	</select>
+	<!-- 抓取T710答案 -->
+	<select id="queryDOCRMT710_DETIAL" parameterType="HashMap"
+		resultType="HashMap">
+		SELECT
+		RESULT,
+		RESULT_ID
+
+		FROM docrmt710
+		WHERE QUESTION_ID =#{QUESTION_ID}
+
+
+	</select>
+	<!-- 查詢相對應的編號資料，若為已填答過不能按儲存，資料也必須隱藏儲存前填入的資料 -->
+	<select id="queryDOCRMT710_Person" parameterType="HashMap"
+		resultType="HashMap">
+		SELECT
+		a.DOCRM_NO,
+		b.QUESTION_ID,
+		b.RESULT_ID,
+		c.RESULT,
+		d.QUESTION
+		FROM docrmt200 a
+		LEFT JOIN docrmt720 b on a.DOCRM_NO = b.DOCRM_NO
+		LEFT JOIN docrmt710 c ON b.QUESTION_ID = c.QUESTION_ID
+		AND b.RESULT_ID = c.RESULT_ID
+		LEFT JOIN docrmt700 d ON b.QUESTION_ID = d.QUESTION_ID
+		WHERE a.DOCRM_NO =#{DOCRM_NO}
+		and b.QUESTION_ID =#{QUESTION_ID}
+
+	</select>
+
+	<insert id="insertDOCRMT720" parameterType="HashMap">
+		insert into
+		DOCRMT720(
+		DOCRM_NO
+		,QUESTION_ID
+		,RESULT_ID
+		,RESPOND_DATE
+		,CREATE_USER_ID
+		,CREATE_DATE
+		,CREATE_TIME
+
+		)values(
+		#{DOCRM_NO}
+		,#{QUESTION_ID}
+		,#{RESULT_ID}
+		,#{RESPOND_DATE}
+		,#{CREATE_USER_ID}
+		,#{CREATE_DATE}
+		,#{CREATE_TIME}
+		)
+	</insert>
+
+</mapper>

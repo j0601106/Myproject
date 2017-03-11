@@ -1,0 +1,109 @@
+﻿<html>
+<style>
+	@page 
+	{
+		size: landscape;
+		margin: 5in;
+	}
+
+	.printBlock
+	{
+		height			:100%;
+		border-style		:solid;
+		border-width		:1;
+		border-color		:blue;
+		page-break-after	:always;
+	}
+	
+	.lastBlock
+	{
+		height		:100%;
+		border-style	:solid;
+		border-width	:1;
+		border-color	:blue;
+	}
+	
+	.tdGray 
+	{
+		background-color: #E0E0E0;
+	}
+</style>
+<script>
+	function beforePrint()
+	{
+		var	brSize	=	document.getElementsByTagName("br").length;
+		var	divSize	=	document.getElementsByTagName("div").length;
+		var	btnSize	=	document.getElementsByTagName("input").length;
+		for (var i = 0; i < brSize; i++)
+		{
+			if (document.getElementsByTagName("br")[i].id != '')
+				document.getElementsByTagName("br")[i].style.display		=	'none';
+		}
+			
+		for (var i = 0; i < divSize; i++)
+			document.getElementsByTagName("div")[i].style.borderWidth	=	0;
+		
+		printMenuBar.style.display		=	'none';
+	}
+	
+	function afterPrint()
+	{
+		var	brSize	=	document.getElementsByTagName("br").length;
+		var	divSize	=	document.getElementsByTagName("div").length;
+		var	btnSize	=	document.getElementsByTagName("input").length;
+		for (var i = 0; i < brSize; i++)
+			document.getElementsByTagName("br")[i].style.display		=	'';
+			
+		for (var i = 0; i < divSize; i++)
+			document.getElementsByTagName("div")[i].style.borderWidth	=	1;
+			
+		printMenuBar.style.display		=	'';
+	}
+	
+	window.onbeforeprint	=	beforePrint;
+	window.onafterprint	=	afterPrint
+	
+	function bodyOnload() 
+	{
+		factory.printing.header		=	"<RPTHEADER>";		//頁首
+		factory.printing.footer		=	"<RPTFOOTER>";		//頁尾
+		factory.printing.portrait	=	<RPTPORTRAIT>;		//橫印
+		factory.printing.leftMargin	=	<RPTLEFTMARGIN>;	//左邊界
+		factory.printing.rightMargin	=	<RPTRIGHTMARGIN>;	//右邊界
+		factory.printing.topMargin	=	<RPTTOPMARGIN>;		//上邊界
+		factory.printing.bottomMargin	=	<RPTBOTTOMMARGIN>;	//下邊界
+		//factory.printing.Print(<RPTAUTOPRINT>);			//直接印
+		
+		//設定分頁
+		var	divSize	=	document.getElementsByTagName("div").length;
+		for (var i = 0; i < divSize; i++)
+		{
+			if (i == divSize)
+				document.getElementsByTagName("div")[i].className	=	'printBlock';
+			else
+				document.getElementsByTagName("div")[i].className	=	'lastBlock';
+		}
+		
+		btn_preview.disabled	=	false;
+		btn_print.disabled	=	false;
+	}
+</script>
+<body topmargin=0 onload="bodyOnload()">
+<table width=100% class="tdGray" id=printMenuBar>
+	<tr>
+		<td>
+			<input type="button" value="離　開" onclick="top.close()">
+		</td>
+		<td align=right>
+			<span contentEditable=true>　　　　</span>
+			<span contentEditable=true>　　　　</span>
+			<input type="button" id='btn_preview' disabled value="列印預覽" onclick="factory.printing.Preview()">
+			<input type="button" id='btn_print' disabled value="列　印" onclick="factory.printing.Print(<RPTAUTOPRINT>)">
+			<object id="factory" viewastext style="display:none"
+				classid="clsid:1663ed61-23eb-11d2-b92f-008048fdd814"
+				codebase="/utility/ScriptX.cab#Version=6,1,428,11">
+			</object>
+		</td>
+	</tr>
+</table>
+<br id=x>

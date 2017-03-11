@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/xyz/decorators">
+
+   	<decorator name="xyz.template_1_main" page="template_1_main.jsp" />
+
+</decorators>

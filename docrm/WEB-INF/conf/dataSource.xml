@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans default-lazy-init="true" default-dependency-check="none" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+	http://www.springframework.org/schema/jdbc 
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd 
+	">
+    
+    <!-- 
+		    LTX : 稅務
+		    LOA : OA辦公室
+		    LOD : 公文
+		    LDW : 資料倉儲
+		    LKM : 知識管理
+		    LIS : 資安紀錄
+     -->
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/conf/env.properties</value> 
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="ds_SSR_E77A" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/comp/env/jdbc/ds_SSR_E77A"/>
+	</bean>
+	
+	<!-- START @ ltsDAOFactory 靜態資源設定  ** 不可移除 ** -->
+    <bean id="ltsDaoFactory" class="lts.global.core.dao.LTSDaoFactory" destroy-method="close">
+    	<property name="daoCacheMap">
+			<map>
+				<entry key="ds_SSR_E77A" value-ref="ds_SSR_E77ADao"/>
+			</map>
+		</property>
+    </bean>
+    <!-- END @ ltsDAOFactory 靜態資源設定  ** 不可移除 ** -->
+    
+	<!-- START @ DAO 靜態資源設定  ** 不可移除 ** -->
+    <bean id="ds_SSR_E77ADao" class="lts.global.core.dao.impl.LTSDaoImpl">
+      <property name="dataSource" ref="ds_SSR_E77A" />
+    </bean>
+	<!-- END @ DAO 靜態資源設定  ** 不可移除 ** -->
+
+</beans>

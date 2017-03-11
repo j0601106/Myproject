@@ -1,0 +1,91 @@
+@charset "utf-8";
+/* CSS Document */
+
+.id_input {
+	font-size: 12px;
+	color: #036;
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px dotted #333;
+}
+/*
+Table中使用的文字-深灰色
+1.備註、說明使用
+2.表格標題使用
+*/
+.t_font {
+	font-size: 12px;
+	color: #333;
+	letter-spacing: 2px;
+	word-spacing: 2px;
+}
+/*按鈕使用*/
+.t_button {
+	font-size: 12px;
+	color: #333;
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px none #036;
+}
+/*表格外框使用-紅色*/
+.t_table_red {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #C33;
+	color:#C33
+}
+/*表格外框使用-橘色*/
+.t_table_orange {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #C30;
+	color:#C30
+}
+/*表格外框使用-藍色*/
+.t_table_blue {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #69C;
+	color:#69C
+}
+/*表格外框使用-綠色*/
+.t_table_green {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #090;
+	color:#090
+}
+/*表格外框使用-紫色*/
+.t_table_purple {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #669;
+	color:#669
+}
+/*表格外框使用-咖啡色*/
+.t_table_brown {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #A85;
+	color:#A85
+}
+/*表格外框使用-黃色*/
+.t_table_yellow {
+	letter-spacing: 2px;
+	word-spacing: 2px;
+	border: 1px solid #FC0;
+	color:#FC0
+}
+/*一般文字使用-深藍色*/
+.m_font {
+	font-size: 12px;
+	color: #036;
+	letter-spacing: 2px;
+	word-spacing: 2px;
+}
+/*警示文字使用-紅色*/
+.w_font {
+	font-size: 12px;
+	color: #A00;
+	letter-spacing: 2px;
+	word-spacing: 2px;

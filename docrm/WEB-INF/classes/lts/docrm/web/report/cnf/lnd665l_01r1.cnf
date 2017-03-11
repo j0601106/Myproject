@@ -1,0 +1,74 @@
+[VERSION]
+@@程式代號 = lnd665l_01r1
+@@程式名稱 = 列印稽催清冊
+@@程式版本 = 1.1.1
+@@更新日期 = 2010/03/05
+@@機密等級 = 普通
+@@修改說明 = 開始建立
+[REPORT]
+DBOWNER=ELT
+JUMP=Y
+FILLLINE=N
+LINE=60
+PAGERANGE=
+ROWSIZE=120
+PAPERSIZE=1
+GROUPFIELD=ORG_CD,CHK_STAFF
+GROUPJUMP=ORG_CD
+SHOW_GROUP_COLUMN=N
+GROUPPAGERESET=N
+GROUPSERNORESET=N
+COUNTCOLUMN=
+SQL=
+WHERE=WHERE
+COLUMNNAME=ORG_CD,DST_NM,CHK_STAFF,USER_ID_NM,CASE_NO,LRG_DTL_NM,DATA_ID,ASG_DATE,LMT_DATE
+SUBREPORT=
+SUBREPORTKEY=
+[HEAD]
+LINE=7
+HEAD1=[SETCPI,7]
+HEAD2=                                                                         XYZT002   主檔清單
+HEAD3= 表報代號：LND665P                                                      &1        ~ &2                                                          頁　　次：&PNO
+HEAD4= 分處：&3  &4                                                                                                                                   製表日期：&SYSDATE 
+HEAD5=
+HEAD6=         ITEM_NO               BASC_AMOUNT    TOTAL_AMOUNT                                              ADDRESS              VIP_CHECK   DELIVER_DATE   未辦結原因說明
+HEAD7======================================================================================================================================================================
+[BODY]
+LINESTR=
+LINE=1
+BODY1= &5       &6                    &7          &8                                                            &9                    &10        &11      
+[FOOT]
+LINE=0
+[PAGEBODY]
+LINE=0
+[GROUPBODY1]
+LINE=1
+GROUPBODY1=---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+[GROUPBODY2]
+LINE=0
+[LASTFOOT]
+LINE=0
+[FIELD]
+COUNT=11
+M1=[自定變數].LMT_DATE_B;;YYY/MM/DD
+F1=LMT_DATE_B,A,2,M,9,FD,1
+M2=[自定變數].LMT_DATE_E;;YYY/MM/DD
+F2=LMT_DATE_E,A,0,M,9,FD,1
+M3=ORG_CD;;@.@
+F3=ORG_CD,A,0,M,3
+M4=DST_NM;;@......................................@
+F4=DST_NM,A,0,M,40
+M5=CHK_STAFF;;@......@
+F5=CHK_STAFF,A,0,M,8
+M6=USER_ID_NM;;@..................@
+F6=USER_ID_NM,A,0,M,20
+M7=CASE_NO;;@........@
+F7=CASE_NO,A,0,M,10
+M8=LRG_DTL_NM;;@..........................................................@
+F8=LRG_DTL_NM,A,0,M,60
+M9=DATA_ID;;@..................@
+F9=DATA_ID,A,0,M,20
+M10=ASG_DATE;;YYY/MM/DD
+F10=ASG_DATE,A,0,M,9,FD,1
+M11=LMT_DATE;;YYY/MM/DD
+F11=LMT_DATE,A,0,M,9,FD,1

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM330M_">
+	
+	<update id="updateDOCRMT200" parameterType="HashMap">
+		update DOCRMT200
+		<set>
+			<if test="RDC_NO != null">RDC_NO = #{RDC_NO},</if>
+			<if test="DOC_STF_NM != null">DOC_STF_NM = #{DOC_STF_NM},</if>
+			<if test="CPL_DATE != null">CPL_DATE = #{CPL_DATE},</if>
+			<if test="DOC_STF_CD != null">DOC_STF_CD = #{DOC_STF_CD},</if>
+			<if test="LMT_DATE != null">LMT_DATE = #{LMT_DATE},</if>
+			<if test="DOCRM_STUS != null">DOCRM_STUS = #{DOCRM_STUS},</if>
+		</set> 
+		where 
+			DOCRM_NO = #{DOCRM_NO}
+	</update>
+</mapper>

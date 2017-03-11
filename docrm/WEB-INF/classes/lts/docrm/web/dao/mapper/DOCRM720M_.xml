@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM720M_">
+
+<!-- 查詢資料 -->
+<select id="queryDOCRMT720" parameterType="HashMap" resultType="HashMap">
+SELECT DISTINCT
+	R5.PHRASE_TITLE AS ORG_ID,
+	R4.PHRASE_TITLE AS TAX,
+	A.DOCRM_NO,
+	A.RESPOND_DATE,
+	R1.APPLY_DATE,
+	R1.CPL_DATE,
+	R3.RESULT,
+	R2.QUESTION
+FROM
+	DOCRMT720 A
+LEFT JOIN docrmt200 R1 ON A.DOCRM_NO = R1.DOCRM_NO
+LEFT JOIN docrmt700 R2 ON A.QUESTION_ID = R2.QUESTION_ID
+LEFT JOIN docrmt710 R3 ON A.QUESTION_ID = R3.QUESTION_ID
+AND A.RESULT_ID = R3.RESULT_ID
+LEFT JOIN docrmt850 R4 ON R1.TAX_TP = R4.PHRASE_KEY
+AND R4.PHRASE_TYPE_KEY = 'TAX_TP'
+LEFT JOIN DOCRMT850 R5 ON R1.ACP_CD = R5.PHRASE_KEY
+AND R5.PHRASE_TYPE_KEY = 'ORG_ID'
+	<where>
+<if test="TAX_TP != null and TAX_TP != ''">and R1.TAX_TP = #{TAX_TP} </if>
+<if test="YEAR != null and YEAR != ''">and SUBSTR(R1.APPLY_DATE,1,3) = #{YEAR} </if>
+<if test="MONTH != null and MONTH != ''">and SUBSTR(R1.APPLY_DATE,4,2) = #{MONTH} </if>
+<if test="DOC_ORG_ID != null and DOC_ORG_ID != ''">and R1.DOC_ORG_ID= #{DOC_ORG_ID}</if>
+<if test="TOPIC != null and TOPIC != ''">and A.QUESTION_ID = #{TOPIC} </if>
+<if test="ANSWER != null and ANSWER != ''">and R3.RESULT = #{ANSWER} </if>
+	</where>
+
+</select>
+
+<!-- 題目下拉式選單 -->
+<select id="queryDOCRMT700" parameterType="HashMap" resultType="HashMap">
+SELECT * FROM DOCRMT700 
+WHERE
+STUS = "Y"
+</select>
+
+<!-- 答案下拉式選單 -->
+<select id="queryDOCRMT710" parameterType="HashMap" resultType="HashMap">
+SELECT
+	docrmt710.RESULT AS TEXT
+FROM
+	DOCRMT710
+INNER JOIN DOCRMT700 ON DOCRMT700.QUESTION_ID = DOCRMT710.QUESTION_ID
+WHERE
+docrmt710.QUESTION_ID=#{TOPIC}
+</select>
+
+</mapper>

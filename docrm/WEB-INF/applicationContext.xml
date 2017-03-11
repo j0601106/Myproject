@@ -1,0 +1,84 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+ 
+   <!-- Spring Quartz Scheduler job OA -->
+<!--   <bean name="schedulerJobOA" class="org.springframework.scheduling.quartz.JobDetailBean"> -->
+<!-- 	<property name="jobClass" value="lts.tbd.daemon.manager.impl.QIZJOB_OA" /> -->
+<!--   </bean> -->
+  
+   <!-- Spring Quartz Scheduler job UpdateIn-->
+  <bean name="schedulerJobUpdateIn" class="org.springframework.scheduling.quartz.JobDetailBean">
+	<property name="jobClass" value="lts.docrm.web.manager.impl.DOCRM330M_ManagerImpl" />
+  </bean>
+  
+   <!-- Spring Quartz Scheduler job ITIL-->
+<!--   <bean name="schedulerJobITIL" class="org.springframework.scheduling.quartz.JobDetailBean"> -->
+<!-- 	<property name="jobClass" value="lts.qiz.daemon.manager.impl.QIZJOB_ITIL" /> -->
+<!--   </bean> -->
+  
+ <!-- Spring Quartz Scheduler job TAX-->
+<!--   <bean name="schedulerJobTAX" class="org.springframework.scheduling.quartz.JobDetailBean"> -->
+<!-- 	<property name="jobClass" value="lts.qiz.daemon.manager.impl.QIZJOB_TAX" /> -->
+<!--   </bean> -->
+  
+ <!-- Spring Quartz Scheduler job LOCALTAX-->
+<!--   <bean name="schedulerJobLOCALTAX" class="org.springframework.scheduling.quartz.JobDetailBean"> -->
+<!-- 	<property name="jobClass" value="lts.qiz.daemon.manager.impl.QIZJOB_LOCALTAX" /> -->
+<!--   </bean> -->
+   
+ <!-- Cron Trigger OA -->
+<!--   <bean id="cronTriggerOA" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 	<property name="jobDetail" ref="schedulerJobOA" /> -->
+<!-- 	<property name="cronExpression" value="0 0/1 * * * ?" /> -->
+<!--   </bean> -->
+  
+  <!-- Cron Trigger UpdateIn-->
+  <bean id="cronTriggerUpdateIn" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<property name="jobDetail" ref="schedulerJobUpdateIn" />
+	<property name="cronExpression" value="0 0/10 * * * ?" />
+  </bean>
+  
+ <!-- Cron Trigger ITIL-->
+<!--   <bean id="cronTriggerITIL" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 	<property name="jobDetail" ref="schedulerJobITIL" /> -->
+<!-- 	<property name="cronExpression" value="15 0/2 * * * ?" /> -->
+<!--   </bean> -->
+  
+ <!-- Cron Trigger TAX-->
+<!--   <bean id="cronTriggerTAX" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 	<property name="jobDetail" ref="schedulerJobTAX" /> -->
+<!-- 	<property name="cronExpression" value="30 0/2 * * * ?" /> -->
+<!--   </bean> -->
+  
+ <!-- Cron Trigger LOCALTAX-->
+<!--   <bean id="cronTriggerLOCALTAX" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!-- 	<property name="jobDetail" ref="schedulerJobLOCALTAX" /> -->
+<!-- 	<property name="cronExpression" value="45 0/2 * * * ?" /> -->
+<!--   </bean> -->
+  
+  <!-- DI -->
+  <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<property name="jobDetails">
+		<list>
+			<ref bean="schedulerJobUpdateIn" />
+<!-- 			<ref bean="schedulerJobOA" /> -->
+<!-- 			<ref bean="schedulerJobITIL" /> -->
+<!-- 			<ref bean="schedulerJobTAX" /> -->
+<!-- 			<ref bean="schedulerJobLOCALTAX" /> -->
+		</list>
+	</property>
+ 
+	<property name="triggers">
+		<list>
+			<ref bean="cronTriggerUpdateIn" />
+<!-- 			<ref bean="cronTriggerOA" /> -->
+<!-- 			<ref bean="cronTriggerITIL" /> -->
+<!-- 			<ref bean="cronTriggerTAX" /> -->
+<!-- 			<ref bean="cronTriggerLOCALTAX" /> -->
+		</list>
+	</property>
+  </bean>
+ 
+</beans>

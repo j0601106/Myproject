@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 程式版本 = V1.000 -->
+<mapper namespace="docrm.dao.DOCRM830M_">
+	
+	<select id="queryDOCRMT830" parameterType="HashMap" resultType="HashMap">
+		select 
+			A.CREATE_DATE
+			,A.CREATE_TIME
+			,A.CREATE_USER_ID
+			,A.ORG_ID
+			,A.PKNO
+			,A.ROLE_ID
+			,A.UPDATE_DATE
+			,SUBSTR(A.UPDATE_TIME,1,6) AS UPDATE_TIME
+			,A.UPDATE_USER_ID
+			,A.USER_ID
+			,A.USER_IP
+			,A.USER_NM
+			,B.PHRASE_TITLE
+			,C.PHRASE_TITLE AS ORG_CD
+
+		FROM docrmt830 A
+			LEFT JOIN docrmt850 B
+			ON A.ROLE_ID = B.PHRASE_KEY
+			AND B.PHRASE_TYPE_KEY='ROLE_ID'
+			LEFT JOIN docrmt850 C
+			ON A.ORG_ID = C.PHRASE_KEY
+			AND C.PHRASE_TYPE_KEY='ORG_ID'
+		<where>
+			<if test="PKNO != null and PKNO != ''">
+				and A.PKNO = #{PKNO} 
+			</if>
+			<if test="ORG_ID != null and ORG_ID != ''">
+				AND A.ORG_ID = #{ORG_ID}
+			</if>
+			<if test="USER_NM != null and USER_NM != ''">
+				AND A.USER_NM = #{USER_NM}
+			</if>
+			<if test="ROLE_ID != null and ROLE_ID != ''">
+				AND A.ROLE_ID = #{ROLE_ID}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertDOCRMT830" parameterType="HashMap">
+		insert into DOCRMT830(
+			ORG_ID
+			,USER_ID
+			,USER_NM
+			,USER_IP
+			,CREATE_DATE
+			,CREATE_TIME
+			,CREATE_USER_ID
+			,ROLE_ID
+			,UPDATE_USER_ID
+			,UPDATE_DATE
+			,UPDATE_TIME
+		)values(
+		
+			#{ORG_ID}
+			,#{USER_ID}
+			,#{USER_NM}
+			,#{USER_IP}
+			,#{CREATE_DATE}
+			,#{CREATE_TIME}
+			,#{CREATE_USER_ID}
+			,#{ROLE_ID}
+			,#{UPDATE_USER_ID}
+			,#{UPDATE_DATE}
+			,#{UPDATE_TIME}
+		)
+	</insert>
+	
+	<update id="updateDOCRMT830" parameterType="HashMap">
+		update DOCRMT830
+		<set>
+			<if test="ORG_ID != null">ORG_ID = #{ORG_ID},</if>
+			<if test="USER_NM != null">USER_NM = #{USER_NM},</if>
+			<if test="USER_IP != null">USER_IP = #{USER_IP},</if>
+			<if test="ROLE_ID != null">ROLE_ID = #{ROLE_ID},</if>
+			<if test="UPDATE_USER_ID != null">UPDATE_USER_ID = #{UPDATE_USER_ID},</if>
+			<if test="UPDATE_DATE != null">UPDATE_DATE = #{UPDATE_DATE},</if>
+			<if test="UPDATE_TIME != null">UPDATE_TIME = #{UPDATE_TIME},</if>
+		</set> 
+		where 
+			PKNO = #{PKNO}
+	</update>
+	
+	<delete id="deleteDOCRMT830" parameterType="HashMap">
+		delete from DOCRMT830 
+		where 
+		PKNO in 
+		<foreach collection="PKNO" item="ids" open="(" separator="," close=")">
+	 		#{ids}
+	 	</foreach>
+	</delete>
+</mapper>

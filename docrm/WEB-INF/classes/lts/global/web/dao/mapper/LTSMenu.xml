@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lts.dao.LTSMenu">
+	
+	<!-- MENU第一層 -->
+	
+	<select id="query_menu1" parameterType="HashMap" resultType="HashMap">
+		SELECT 'DOCRM' AS SYS_CD,
+			   '收件管理系統' AS SYS_NM
+		  FROM DOCRMT121
+		 ORDER BY FUNCTION_ID
+	</select>
+	
+	<!-- MENU第二層 -->
+	<select id="query_menu2" parameterType="HashMap" resultType="HashMap">
+		SELECT DISTINCT 'DOCRM' AS SYS_CD,
+		       LEVEL_CODE,
+			   LEVEL_NM
+		  FROM DOCRMT121
+		 INNER JOIN DOCRMT122 ON DOCRMT121.FUNCTION_ID = DOCRMT122.FUNCTION_ID
+		 WHERE GROUP_ID=#{GROUP_ID}
+    </select>
+
+	<!-- MENU第三層 -->
+	<select id="query_menu3" parameterType="HashMap" resultType="HashMap" statementType="CALLABLE">
+		SELECT DISTINCT 'DOCRM' AS SYS_CD,
+		       LEVEL_CODE,
+			   LEVEL_NM,
+			   SUBSTR(DOCRMT121.FUNCTION_ID,6,3) AS LABEL_CD,
+			   DOCRMT121.FUNCTION_ID AS PRG_CD,
+			   FUNCTION_NM AS PRG_NM
+		  FROM DOCRMT121
+		 INNER JOIN DOCRMT122 ON DOCRMT121.FUNCTION_ID = DOCRMT122.FUNCTION_ID
+		 WHERE GROUP_ID=#{GROUP_ID}
+	</select>
+</mapper>

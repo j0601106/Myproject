@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/framework" reloadable="true" allowLinking="true">
+<!-- @10.7.103.11:1521:WEBDB -->
+<!-- @localhost:1521:XE  -->
+		 
+	<Resource name="jdbc/ds_SSR_E77A" 
+		 auth="Container" 
+		 type="javax.sql.DataSource"
+		 factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory" 
+		 driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://59.120.36.182:3306/docrm?useUnicode=true&amp;characterEncoding=UTF-8" 
+		 username="docrm" password="docrm"
+		 defaultAutoCommit="false" maxActive="6" 
+		 maxIdle="2" maxWait="10000" />
+	
+<!-- 	<Resource name="jdbc/ds_SSR_E77A"  -->
+<!-- 		 auth="Container"  -->
+<!-- 		 type="javax.sql.DataSource" -->
+<!-- 		 factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"  -->
+<!-- 		 driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://10.6.200.117:3306/docrm?useUnicode=true&amp;characterEncoding=UTF-8"  -->
+<!-- 		 username="docrm" password="docrm" -->
+<!-- 		 defaultAutoCommit="false" maxActive="6"  -->
+<!-- 		 maxIdle="2" maxWait="10000" /> -->
+</Context>
